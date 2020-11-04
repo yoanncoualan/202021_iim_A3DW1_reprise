@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategorieController!{% endblock %}
+
+{% block body %}
+
+    <h1>{{ 'categorie.titre'|trans }}</h1>
+
+    {{dump(categorieParDate)}}
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Création</th>
+                <th>Articles</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categorie in categories %}
+                <tr>
+                    <td>
+                        <a href="{{ path('show', {'id': categorie.id}) }}">
+                            {{categorie.nom}}
+                        </a>
+                    </td>
+                    <td>{{categorie.creation|date('d/m/Y')}}</td>
+                    <td>{{ categorie.articles|length }}</td>
+                    <td>
+                        <a href="{{ path('delete', {'id': categorie.id}) }}">
+                            Supprimer
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">Il n'y a pas de catégories</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Ajouter une catégorie</h2>
+    {{ form(ajout) }}
+
+{% endblock %}
